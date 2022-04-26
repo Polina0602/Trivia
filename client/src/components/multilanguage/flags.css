@@ -1,0 +1,8 @@
+.flags {
+    position: absolute;
+    right: 0;
+    padding-right: 10px;
+    padding-top: 10px;
+    /* filter: invert(100%); */
+    color:cyan;
+}
