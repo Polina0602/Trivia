@@ -1,38 +1,72 @@
 .App {
   text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'IBM Plex Sans Hebrew', sans-serif;
+  color: #666
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 35px 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+.main > div {flex-basis:calc(100%/2 - 200px);display: flex;
+  flex-direction: column;}
+
+.button {
+  display: inline-block;
+    font-size: 25px;
+    background-color: #FFA800;
+    color: #FFFFFF;
+    padding: 10px 50px;
+    border-radius: 15px;
+    margin: 25px auto;
+    text-decoration: none;
+    cursor: pointer
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.central_text {flex-basis: 100%!important;}
+
+h1 {
+  font-size:36px!important;
+  flex-basis:100%
+}
+
+.left_side {    
+padding:25px 100px 25px 25px}
+
+.right_side {padding: 25px 25px 25px 100px}
+
+.map {flex-basis:calc(100%/3 - 50px)!important; margin:25px}
+
+.label+.css-1480iag-MuiInputBase-root-MuiInput-root {margin-bottom:16px}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {border-color:#FFA800!important;border-radius:15px!important}
+
+.sn_button {padding: 16px!important; border-radius: 15px!important;}
+
+.socButton {
+  display: block;
+  border-radius: 15px!important;
+  border:#FFA800 1px solid!important;
+  width: 100%;    
+  height: 55px;
+  justify-content: center;
+  font-size: large!important;
+  font-family:inherit!important;
+  font-weight: bolder!important;
+}
+
+.kep-login-facebook {
+  width: 100%;
+  margin-bottom: 11px!important;
+  justify-content: center!important;
+  border-radius: 15px!important;
+  font-family:inherit!important;
+  font-weight: bolder!important;
+  
 }
