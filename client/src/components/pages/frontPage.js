@@ -22,7 +22,7 @@ export default function FrontPage() {
           {t("About Game")}
         </Typography>
       </div>
-      <bh />
+      {/* <bh /> */}
       <Link className="button" to="/Registration">
         {t("Start to Play")}
       </Link>

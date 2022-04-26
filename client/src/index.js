@@ -6,12 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-    <Suspense fallback={<div>Loading</div>}>
-      <BrowserRouter>
-        <React.StrictMode>
+    <Suspense fallback={<div>Loading</div>}>      
+      <React.StrictMode>
+        <BrowserRouter>
           <App />
-        </React.StrictMode>
-      </BrowserRouter>
+        </BrowserRouter>
+      </React.StrictMode>     
     </Suspense>,
     document.getElementById("root")
   );
