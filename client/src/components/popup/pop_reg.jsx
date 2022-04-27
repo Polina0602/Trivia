@@ -2,32 +2,39 @@ import React from "react";
 import "./pop_reg.css";
 import { Link } from "react-router-dom";
 import { TextField } from "@mui/material";
-import CancelIcon from '@mui/icons-material/Cancel';
-import { useTranslation } from 'react-i18next';
+import CancelIcon from "@mui/icons-material/Cancel";
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useHttp } from "../hooks/http.hook";
-import { useMessage } from '../hooks/message.hook';
-import { Alert, Stack, AlertTitle } from '@mui/material';
+import { useMessage } from "../hooks/message.hook";
+import { Alert, Stack, AlertTitle } from "@mui/material";
 
 const Pop_reg = ({ active, setActive }) => {
-  const message = useMessage()
-  const { loading, request, error, clearError } = useHttp()
+  const message = useMessage();
+  const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
-    email: '', age: '', password: '', passwordConfirm: ''
-  })
+    email: "",
+    age: "",
+    password: "",
+    passwordConfirm: "",
+  });
 
   useEffect(() => {
-    message(error)
-    clearError()
-  }, [error, message, clearError])
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
 
-  const changeHandler = event => {
-    setForm({ ...form, [event.target.name]: event.target.value })
-  }
+  const changeHandler = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
 
   const registerHandler = async () => {
     try {
-      const data = await request('http://localhost:3500/api/auth/register', 'POST', { ...form })
+      const data = await request(
+        "http://localhost:3500/api/auth/register",
+        "POST",
+        { ...form }
+      );
       message(data.messages);
       // console.log("registerHandler",data.message);
       alert(data.message);
@@ -37,27 +44,25 @@ const Pop_reg = ({ active, setActive }) => {
           <AlertTitle>Success</AlertTitle>
           This is a success alert — <strong>check it out!</strong>
         </Alert>
-      </Stack>
-
-
+      </Stack>;
     } catch (e) {
-
-      message(e)
+      message(e);
       // console.log("registerHandler",e)
       // alert(e)
       return (
-        <Stack sx={{ width: '100%' }} >
-          <Alert onClose={() => { }}>This is a success alert — check it out!</Alert>
+        <Stack sx={{ width: "100%" }}>
+          <Alert onClose={() => {}}>
+            This is a success alert — check it out!
+          </Alert>
           {/* <Alert severity="warning">This is a warning alert — check it out!</Alert>
           <Alert severity="info">This is an info alert — check it out!</Alert>
           <Alert severity="success">This is a success alert — check it out!</Alert> */}
         </Stack>
       );
-
     }
-  }
+  };
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div className={active ? "pop_reg active" : "pop_reg"}>
       <div className="pop_reg_content">
@@ -67,7 +72,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="email"
-          label={t('Email')}
+          label={t("Email")}
           variant="outlined"
           className="reg_input"
           sx={{ mb: 2 }}
@@ -77,7 +82,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="age"
-          label={t('Age')}
+          label={t("Age")}
           variant="outlined"
           className="reg_input"
           sx={{ mb: 2 }}
@@ -86,7 +91,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="password"
-          label={t('Password')}
+          label={t("Password")}
           variant="outlined"
           className="reg_input"
           sx={{ mb: 2 }}
@@ -97,7 +102,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="passwordConfirm"
-          label={t('Confirm password')}
+          label={t("Confirm password")}
           variant="outlined"
           className="reg_input"
           sx={{ mb: 2 }}
@@ -106,10 +111,12 @@ const Pop_reg = ({ active, setActive }) => {
         />
 
         <Link
-          className="button" to="/"
+          className="button"
+          to="/Location"
           onClick={registerHandler}
-          disabled={loading} >
-          {t('Registration')}
+          disabled={loading}
+        >
+          {t("Registration")}
         </Link>
       </div>
     </div>
