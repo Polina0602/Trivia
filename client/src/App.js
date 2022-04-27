@@ -8,19 +8,17 @@ import Location from "./components/pages/locationPage";
 import { Routes, Route, useRoutes } from "react-router-dom";
 
 function App() {
-  const { t } = useTranslation();  //translation
-  
-  return (
+  const { t } = useTranslation(); //translation
 
+  return (
     <div className="App">
-      
       <HeaderContent />
-     
-         <Routes>
-          <Route path="/" element={<FrontPage />} />
-           <Route path="/Registration" element={<Registration />} />
-          <Route path="/Location" element={<Location />} />
-        </Routes> 
+
+      <Routes>
+        <Route path="/" element={<FrontPage />} />
+        <Route path="/Registration" element={<Registration />} />
+        <Route path="/Location" element={<Location />} />
+      </Routes>
     </div>
   );
 }
