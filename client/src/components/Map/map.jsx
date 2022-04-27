@@ -24,10 +24,10 @@ const defaultOptions = {
   styles: defaultTheme,
 };
 
-const center = {
-  lat: 31.778903,
-  lng: 35.240629,
-};
+// const center = {
+//   lat: 31.778903,
+//   lng: 35.240629,
+// };
 
 const Map = ({ center }) => {
   const mapRef = React.useRef(undefined);
@@ -50,10 +50,10 @@ const Map = ({ center }) => {
         onUnmount={onUnmount}
         options={defaultOptions}
       >
-        {/* Child components, such as markers, info windows, etc. */}
-        <></>
-      </GoogleMap>
-    </div>
+         {/* Child components, such as markers, info windows, etc. */}
+         <></>
+       </GoogleMap>
+     </div>
   );
 };
 

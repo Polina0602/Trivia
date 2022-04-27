@@ -9,7 +9,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 
-const API_KEY = "AIzaSyAGJiLGMcbkohTjHeU8iR7stL4YVnFTO24";
+const API_KEY =  process.env.REACT_APP_API_KEY //"AIzaSyCWOLKQRayc_SOTSW34VQC88VrcN9hfnxo";
 console.log(API_KEY);
 
 const defaultCenter = {

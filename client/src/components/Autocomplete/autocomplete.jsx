@@ -78,9 +78,10 @@ export const Autocomplete = ({ isLoaded }) => {
     <div className={s.root} ref={ref}>
       <input
         type="text"
+        value={value}
         className={s.input}
         onChange={handleInput}
-        //disabled={!ready}
+        disabled={!ready}
         placeholder="Choose your favorite place"
       />
       {status === "OK" && (
