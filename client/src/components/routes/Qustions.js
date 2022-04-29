@@ -8,12 +8,12 @@ import axios from 'axios';
     const [counter, setCounter] = useState(0);
  
       const increase = () => { 
-      
+        
         setCounter(counter => counter + 1);
         
         if(counter<5){
        window.location.reload(false);
- 
+  
         }
       };
       // function nextqustion() {
