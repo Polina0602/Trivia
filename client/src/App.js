@@ -6,6 +6,7 @@ import FrontPage from "./components/pages/frontPage";
 import Registration from "./components/pages/registrationPage";
 import Location from "./components/pages/locationPage";
 import { Routes, Route, useRoutes } from "react-router-dom";
+import Qustions from "./components/routes/Qustions"
 
 function App() {
   const { t } = useTranslation(); //translation
@@ -14,10 +15,12 @@ function App() {
     <div className="App">
       <HeaderContent />
 
-      <Routes>
+      <Routes> 
         <Route path="/" element={<FrontPage />} />
         <Route path="/Registration" element={<Registration />} />
         <Route path="/Location" element={<Location />} />
+        <Route path="/Qustions" element={<Qustions />} />
+
       </Routes>
     </div>
   );
