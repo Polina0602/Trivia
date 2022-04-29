@@ -30,8 +30,10 @@ const Pop_reg = ({ active, setActive }) => {
 
   const registerHandler = async () => {
     try {
+      console.log(form)
       const data = await request(
         "http://localhost:3500/api/auth/register",
+        // "/api/auth/register",
         "POST",
         { ...form }
       );
@@ -112,7 +114,7 @@ const Pop_reg = ({ active, setActive }) => {
 
         <Link
           className="button"
-          to="/Location"
+          to="/Registration"
           onClick={registerHandler}
           disabled={loading}
         >

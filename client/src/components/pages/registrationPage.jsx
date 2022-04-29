@@ -14,7 +14,8 @@ export default function Registration() {
     console.log(response);
     axios({
       method: "POST",
-      url: "http://localhost:3500/api/auth/google",
+      // url: "http://localhost:3500/api/auth/google",
+      url: "/api/auth/google",
       data: { tokenId: response.tokenId },
     }).then((response) => {
       console.log("Google login success", response);
@@ -49,7 +50,8 @@ export default function Registration() {
   const loginHandler = async () => {
     try {
       const data = await request(
-        "http://localhost:3500/api/auth/login",
+        // "http://localhost:3500/api/auth/login",
+        "/api/auth/login",
         "POST",
         { ...form }
       );
