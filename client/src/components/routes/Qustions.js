@@ -13,7 +13,7 @@ import axios from 'axios';
         
         if(counter<5){
        window.location.reload(false);
-
+ 
         }
       };
       // function nextqustion() {
