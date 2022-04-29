@@ -4,12 +4,11 @@ import "../../App.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function FrontPage() {
+export function FrontPage() {
   const { t } = useTranslation();
 
   return (
     <div className="main">
-     
       <Typography variant="h1" sx={{ fontWeight: "bold" }}>
         {t("Trivia")}
       </Typography>
@@ -22,7 +21,7 @@ export default function FrontPage() {
           {t("About Game")}
         </Typography>
       </div>
-      {/* <bh /> */}
+      <bh />
       <Link className="button" to="/Registration">
         {t("Start to Play")}
       </Link>

@@ -1,64 +1,71 @@
-const { Router } = require("express");
-const router = Router();
-const User = require("../models/user.module");
+const { Router } = require("express"); 
+const router = Router(); 
+const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 
-// //email
 
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
+require("dotenv").config();
 
-// These id's and secrets should come from .env file.
-const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-const REFRESH_TOKEN = '1//04Nh8YSb1wH3PCgYIARAAGAQSNwF-L9IrR-GTcsE5kkj2GJC3b-rQlogesx35R2TVc4TUABfIBHKxs48hxyYrVYNBzC_KhnT35uk'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+// app.use("cors"());
 
-const oAuth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-); 
+
+
+// // //email
+
+// const nodemailer = require('nodemailer');
+// const { google } = require('googleapis');
+
+// // These id's and secrets should come from .env file.
+// const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
+// const CLIENT_SECRET = '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'
+// const REFRESH_TOKEN = '1//04Nh8YSb1wH3PCgYIARAAGAQSNwF-L9IrR-GTcsE5kkj2GJC3b-rQlogesx35R2TVc4TUABfIBHKxs48hxyYrVYNBzC_KhnT35uk'
+// const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+
+// const oAuth2Client = new google.auth.OAuth2(
+//     CLIENT_ID,
+//     CLIENT_SECRET,
+//     REDIRECT_URI
+// ); 
   
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
   
-async function sendMail(recipient) {
-  try {
-    const accessToken = await oAuth2Client.getAccessToken();
+// async function sendMail(recipient) {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-    const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              type: 'OAuth2',
-              user: 'ikatalkin67@gmail.com',
-              clientId: CLIENT_ID,
-              clientSecret: CLIENT_SECRET,
-              refreshToken: REFRESH_TOKEN,
-              accessToken: accessToken,
-            },
-          });
+//     const transport = nodemailer.createTransport({
+//             service: 'gmail',
+//             auth: {
+//               type: 'OAuth2',
+//               user: 'ikatalkin67@gmail.com',
+//               clientId: CLIENT_ID,
+//               clientSecret: CLIENT_SECRET,
+//               refreshToken: REFRESH_TOKEN,
+//               accessToken: accessToken,
+//             },
+//           });
 
-          const mailOptions = {
-                    from: 'TRIVIA <ikatalkin67@gmail.com>',
-                    to: recipient,
-                    subject: 'Hello from Trivia',
-                    text: 'Thank you for registering.  Have a fun game!',
-                    html: '<h3>Thank you for registering.  Have a fun game!</h3>',
-                };
+//           const mailOptions = {
+//                     from: 'TRIVIA <ikatalkin67@gmail.com>',
+//                     to: recipient,
+//                     subject: 'Hello from Trivia',
+//                     text: 'Thank you for registering.  Have a fun game!',
+//                     html: '<h3>Thank you for registering.  Have a fun game!</h3>',
+//                 };
 
-                console.log(CLIENT_ID)
-                const result = await transport.sendMail(mailOptions);
+//                 console.log(CLIENT_ID)
+//                 const result = await transport.sendMail(mailOptions);
                 
-                    return result;
+//                     return result;
           
         
-  } catch (error) {
-        return error;
-      }
-}  
+//   } catch (error) {
+//         return error;
+//       }
+// }  
 // /api/auth/register
 router.post(
   "/register",
@@ -68,9 +75,10 @@ router.post(
       min: 6,
     }),
   ],
-  async (req, res) => {
+  async (req, res) => { 
     try {
       const errors = validationResult(req);
+      console.log(email)
 
       if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -83,7 +91,7 @@ router.post(
 
       const candidate = await User.findOne({ email });
 
-      // console.log(candidate)
+      console.log(candidate)
 
       if (candidate) {
         return res
@@ -96,21 +104,21 @@ router.post(
         const user = new User({ email, age, password: hashedPassword });
 
         await user.save();
-        // const result = await user.save();
+//         // const result = await user.save();
 
-      //email
-            sendMail(user.email)
-              .then((result) => console.log('Email sent...', result))
-              .catch((error) => console.log(error.message));
+//       //email
+//             sendMail(user.email)
+//               .then((result) => console.log('Email sent...', result))
+//               .catch((error) => console.log(error.message));
 
         res.status(201).json({ message: "Registration completed" });
       } else {
         return res.status(400).json({ message: "Password is not correct" });
       }
-    } catch (e) {
+    } catch (e) {      
       res
         .status(500)
-        .json({ message: "Something is wrong, please, try again" });
+        .json({ message: "Something is wrong, please, try again !!!" });
     }
   }
 );
@@ -130,13 +138,13 @@ router.post(
         return res.status(400).json({
           errors: errors.array(),
           message: "Email or Password is incorrect",
-        });
+        })
       }
 
       const { email, password } = req.body;
 
       const user = await User.findOne({ email });
-    //   console.log(user);
+      console.log(user);
       if (!user) {
         return res.status(400).json({ message: "User not found" });
       }
@@ -147,9 +155,11 @@ router.post(
         return res.status(400).json({ message: "Password is incorrect" });
       }
 
-      const token = jwt.sign({ userId: user.id }, "It is a big secret", {
-        expiresIn: "1h"
-      });
+      const token = jwt.sign(
+        { userId: user.id }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: "1h" }
+      );
 
       res.json({ token, userId: user.id });
     } catch (e) {
@@ -160,12 +170,12 @@ router.post(
   }
 );
 
-const { googlelogin, facebooklogin } = require("../controllers/auth");
+// const { googlelogin, facebooklogin } = require("../controllers/auth");
 
-// /api/auth/google
-router.post("/google", googlelogin);
+// // /api/auth/google
+// router.post("/google", googlelogin);
 
-// /api/auth/facebook
-router.post("/facebook", facebooklogin);
+// // /api/auth/facebook
+// router.post("/facebook", facebooklogin);
 
 module.exports = router;
