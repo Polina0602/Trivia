@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const {Schema, model} = require('mongoose')
+=======
+const {Schema, model, Types} = require('mongoose')
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 const schema = new Schema({
     name: {
         type: String,

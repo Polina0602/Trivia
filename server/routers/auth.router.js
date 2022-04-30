@@ -6,6 +6,17 @@ const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 
+<<<<<<< HEAD
+
+require("dotenv").config();
+
+// app.use("cors"());
+
+
+
+// // //email
+=======
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
 require("dotenv").config();
 
@@ -15,57 +26,57 @@ require("dotenv").config();
 
 // // //email
 
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
+// const nodemailer = require('nodemailer');
+// const { google } = require('googleapis');
 
-// These id's and secrets should come from .env file.
-const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
-const CLIENT_SECRET = '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'
-const REFRESH_TOKEN = '1//04Nh8YSb1wH3PCgYIARAAGAQSNwF-L9IrR-GTcsE5kkj2GJC3b-rQlogesx35R2TVc4TUABfIBHKxs48hxyYrVYNBzC_KhnT35uk'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+// // These id's and secrets should come from .env file.
+// const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
+// const CLIENT_SECRET = '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'
+// const REFRESH_TOKEN = '1//04Nh8YSb1wH3PCgYIARAAGAQSNwF-L9IrR-GTcsE5kkj2GJC3b-rQlogesx35R2TVc4TUABfIBHKxs48hxyYrVYNBzC_KhnT35uk'
+// const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
 
-const oAuth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-); 
+// const oAuth2Client = new google.auth.OAuth2(
+//     CLIENT_ID,
+//     CLIENT_SECRET,
+//     REDIRECT_URI
+// ); 
   
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
   
-async function sendMail(recipient) {
-  try {
-    const accessToken = await oAuth2Client.getAccessToken();
+// async function sendMail(recipient) {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-    const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              type: 'OAuth2',
-              user: 'ikatalkin67@gmail.com',
-              clientId: CLIENT_ID,
-              clientSecret: CLIENT_SECRET,
-              refreshToken: REFRESH_TOKEN,
-              accessToken: accessToken,
-            },
-          });
+//     const transport = nodemailer.createTransport({
+//             service: 'gmail',
+//             auth: {
+//               type: 'OAuth2',
+//               user: 'ikatalkin67@gmail.com',
+//               clientId: CLIENT_ID,
+//               clientSecret: CLIENT_SECRET,
+//               refreshToken: REFRESH_TOKEN,
+//               accessToken: accessToken,
+//             },
+//           });
 
-          const mailOptions = {
-                    from: 'TRIVIA <ikatalkin67@gmail.com>',
-                    to: recipient,
-                    subject: 'Hello from Trivia',
-                    text: 'Thank you for registering.  Have a fun game!',
-                    html: '<h3>Thank you for registering.  Have a fun game!</h3>',
-                };
+//           const mailOptions = {
+//                     from: 'TRIVIA <ikatalkin67@gmail.com>',
+//                     to: recipient,
+//                     subject: 'Hello from Trivia',
+//                     text: 'Thank you for registering.  Have a fun game!',
+//                     html: '<h3>Thank you for registering.  Have a fun game!</h3>',
+//                 };
 
-                console.log(CLIENT_ID)
-                const result = await transport.sendMail(mailOptions);
+//                 console.log(CLIENT_ID)
+//                 const result = await transport.sendMail(mailOptions);
                 
-                    return result;
+//                     return result;
           
         
-  } catch (error) {
-        return error;
-      }
-}  
+//   } catch (error) {
+//         return error;
+//       }
+// }  
 // /api/auth/register
 
 router.post(
@@ -79,6 +90,7 @@ router.post(
   async (req, res) => { 
     try {
       const errors = validationResult(req);
+      console.log(email)
 
       if (!errors.isEmpty()) {
         console.log("errors",errors)
@@ -91,7 +103,12 @@ router.post(
       const { email, age, password, passwordConfirm } = req.body;
 
       const candidate = await User.findOne({ email });
+<<<<<<< HEAD
       // console.log(email, password)
+=======
+
+      console.log(candidate)
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
       if (candidate) {
         return res
@@ -105,8 +122,9 @@ router.post(
 
          console.log('user',user) 
         await user.save();
-        // const result = await user.save();
+//         // const result = await user.save();
 
+<<<<<<< HEAD
         //email
 
         try {
@@ -117,6 +135,12 @@ router.post(
         catch(err) {
           console.log(err)
         }
+=======
+//       //email
+//             sendMail(user.email)
+//               .then((result) => console.log('Email sent...', result))
+//               .catch((error) => console.log(error.message));
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
         res.status(201).json({ message: "Registration completed" });
       } else {
@@ -125,7 +149,11 @@ router.post(
     } catch (e) {      
       res
         .status(500)
+<<<<<<< HEAD
         .json({ message: e });
+=======
+        .json({ message: "Something is wrong, please, try again !!!" });
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
     }
   }
 );
@@ -177,12 +205,12 @@ router.post(
   }
 );
 
-const { googlelogin, facebooklogin } = require("../controllers/auth");
+// const { googlelogin, facebooklogin } = require("../controllers/auth");
 
-// /api/auth/google
-router.post("/google", googlelogin);
+// // /api/auth/google
+// router.post("/google", googlelogin);
 
-// /api/auth/facebook
-router.post("/facebook", facebooklogin);
+// // /api/auth/facebook
+// router.post("/facebook", facebooklogin);
 
 module.exports = router;

@@ -14,8 +14,13 @@ export default function Registration() {
     console.log(response);
     axios({
       method: "POST",
+<<<<<<< HEAD
       url: "http://localhost:3500/api/auth/google",
       // url: "/api/auth/google",
+=======
+      // url: "http://localhost:3500/api/auth/google",
+      url: "/api/auth/google",
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
       data: { tokenId: response.tokenId },
     }).then((response) => {
       console.log("Google login success", response);
