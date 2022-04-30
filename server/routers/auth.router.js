@@ -6,6 +6,17 @@ const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 
+<<<<<<< HEAD
+
+require("dotenv").config();
+
+// app.use("cors"());
+
+
+
+// // //email
+=======
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
 require("dotenv").config();
 
@@ -67,6 +78,7 @@ require("dotenv").config();
 //       }
 // }  
 // /api/auth/register
+
 router.post(
   "/register",
   [
@@ -81,6 +93,7 @@ router.post(
       console.log(email)
 
       if (!errors.isEmpty()) {
+        console.log("errors",errors)
         return res.status(400).json({
           errors: errors.array(),
           message: "Email or Password is incorrect",
@@ -90,8 +103,12 @@ router.post(
       const { email, age, password, passwordConfirm } = req.body;
 
       const candidate = await User.findOne({ email });
+<<<<<<< HEAD
+      // console.log(email, password)
+=======
 
       console.log(candidate)
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
       if (candidate) {
         return res
@@ -103,13 +120,27 @@ router.post(
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, age, password: hashedPassword });
 
+         console.log('user',user) 
         await user.save();
 //         // const result = await user.save();
 
+<<<<<<< HEAD
+        //email
+
+        try {
+          const result = sendMail(user.email);
+
+          console.log('Email sent...', result);
+        }
+        catch(err) {
+          console.log(err)
+        }
+=======
 //       //email
 //             sendMail(user.email)
 //               .then((result) => console.log('Email sent...', result))
 //               .catch((error) => console.log(error.message));
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
         res.status(201).json({ message: "Registration completed" });
       } else {
@@ -118,7 +149,11 @@ router.post(
     } catch (e) {      
       res
         .status(500)
+<<<<<<< HEAD
+        .json({ message: e });
+=======
         .json({ message: "Something is wrong, please, try again !!!" });
+>>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
     }
   }
 );

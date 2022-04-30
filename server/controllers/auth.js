@@ -6,7 +6,7 @@ const client = new OAuth2Client(
   "602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com"
 );
 
-const User = require("../modules/user.module");
+const User = require("../models/user.model");
 
 exports.googlelogin = (req, res) => {
   const { tokenId } = req.body;
@@ -34,8 +34,10 @@ exports.googlelogin = (req, res) => {
           newUser.save();
           
         } else {
-          const token = jwt.sign({ userId: googleUser.id }, "It is a big secret", {
-            expiresIn: "1h",})
+          const token = jwt.sign(
+            { userId: googleUser.id },  
+            process.env.JWT_SECRET, 
+            {expiresIn: "1h",})
           res.json({ token, userId: googleUser.id });
           console.log("User has login!");
         }
@@ -65,9 +67,9 @@ exports.facebooklogin = (req, res) => {
         let newUser = new User({email, password});
         newUser.save()
       } else {
-        const token = jwt.sign({ 
-          userId: facebookUser.id }, 
-          "It is a big secret", 
+        const token = jwt.sign(
+          {userId: facebookUser.id }, 
+          process.env.JWT_SECRET, 
           {expiresIn: "1h"})
         res.json({ token, userId:facebookUser.id });         
         console.log("User has login!");
