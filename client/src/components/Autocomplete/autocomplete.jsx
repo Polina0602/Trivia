@@ -7,7 +7,7 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
-export const Autocomplete = ({ isLoaded }) => {
+export const Autocomplete = ({ isLoaded, onSelect }) => {
   const {
     ready,
     value,
@@ -44,6 +44,7 @@ export const Autocomplete = ({ isLoaded }) => {
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {
           console.log("📍 Coordinates: ", { lat, lng });
+          onSelect({ lat, lng })
         })
         .catch((error) => {
           console.log("😱 Error: ", error);

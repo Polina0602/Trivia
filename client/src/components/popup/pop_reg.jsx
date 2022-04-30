@@ -30,8 +30,10 @@ const Pop_reg = ({ active, setActive }) => {
 
   const registerHandler = async () => {
     try {
+      console.log(form)
       const data = await request(
         "http://localhost:3500/api/auth/register",
+        // "/api/auth/register",
         "POST",
         { ...form }
       );
@@ -72,6 +74,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="email"
+          type="email"
           label={t("Email")}
           variant="outlined"
           className="reg_input"
@@ -82,6 +85,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="age"
+          type="number"
           label={t("Age")}
           variant="outlined"
           className="reg_input"
@@ -91,6 +95,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="password"
+          type="password"
           label={t("Password")}
           variant="outlined"
           className="reg_input"
@@ -102,6 +107,7 @@ const Pop_reg = ({ active, setActive }) => {
         <TextField
           id="standard-basic"
           name="passwordConfirm"
+          type="password"
           label={t("Confirm password")}
           variant="outlined"
           className="reg_input"
@@ -112,7 +118,7 @@ const Pop_reg = ({ active, setActive }) => {
 
         <Link
           className="button"
-          to="/Location"
+          to="/Registration"
           onClick={registerHandler}
           disabled={loading}
         >

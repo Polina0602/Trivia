@@ -1,8 +1,11 @@
-import { GoogleMap } from "@react-google-maps/api";
-import React from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+// import { GoogleMap, MarkerClusterer } from "@react-google-maps/api";
+import React, { useCallback } from "react";
 import "../Map/map.module.css";
 import { defaultTheme } from "./theme";
 import { useRef } from "react";
+// import {Marker} from '../Marker'
+// import { CurrentLocationMarker } from '../currentLocationMarker'
 
 const containerStyle = {
   width: "100%",
@@ -29,7 +32,13 @@ const defaultOptions = {
 //   lng: 35.240629,
 // };
 
-const Map = ({ center }) => {
+
+export const MODES = {
+  MOVE: 0,
+  SET_MARKER: 1
+}
+
+const Map = ({ center, mode, markers, onMarkerAdd }) => {
   const mapRef = React.useRef(undefined);
 
   const onLoad = React.useCallback(function callback(map) {
@@ -40,6 +49,17 @@ const Map = ({ center }) => {
     mapRef.current = undefined;
   }, []);
 
+  const onClick = useCallback((loc) => {
+    if (mode === MODES.SET_MARKER) {
+      const lat = loc.latLng.lat();
+      const lng = loc.latLng.lng();
+      console.log( lat, lng )
+      onMarkerAdd({ lat, lng })
+    }
+  },[mode])
+
+  
+
   return (
     <div className="googleMap">
       <GoogleMap
@@ -48,9 +68,20 @@ const Map = ({ center }) => {
         zoom={10}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onClick={onClick}
         options={defaultOptions}
       >
-         {/* Child components, such as markers, info windows, etc. */}
+        {/* <CurrentLocationMarker position={center} />  */}
+        
+            <Marker position={center} />
+          
+            {markers.map((pos) => {
+              return <Marker position={pos} />
+            })}
+          
+        
+        
+        
          <></>
        </GoogleMap>
      </div>

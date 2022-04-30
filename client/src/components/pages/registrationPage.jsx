@@ -15,6 +15,7 @@ export default function Registration() {
     axios({
       method: "POST",
       url: "http://localhost:3500/api/auth/google",
+      // url: "/api/auth/google",
       data: { tokenId: response.tokenId },
     }).then((response) => {
       console.log("Google login success", response);
@@ -49,7 +50,8 @@ export default function Registration() {
   const loginHandler = async () => {
     try {
       const data = await request(
-        "http://localhost:3500/api/auth/login",
+        // "http://localhost:3500/api/auth/login",
+        "/api/auth/login",
         "POST",
         { ...form }
       );
@@ -70,6 +72,7 @@ export default function Registration() {
         <TextField
           id="standard-basic"
           name="email"
+          type="email"
           label={t("Email")}
           variant="outlined"
           className="reg_input"
@@ -80,6 +83,7 @@ export default function Registration() {
         <TextField
           id="standard-basic"
           name="password"
+          type="password"
           label={t("Password")}
           variant="outlined"
           className="reg_input"

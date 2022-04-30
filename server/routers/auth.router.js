@@ -1,12 +1,19 @@
-const { Router } = require("express");
-const router = Router();
-const User = require("../models/user.module");
+const { Router } = require("express"); 
+const router = Router(); 
+const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 
-// //email
+
+require("dotenv").config();
+
+// app.use("cors"());
+
+
+
+// // //email
 
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
@@ -60,6 +67,7 @@ async function sendMail(recipient) {
       }
 }  
 // /api/auth/register
+
 router.post(
   "/register",
   [
@@ -68,11 +76,12 @@ router.post(
       min: 6,
     }),
   ],
-  async (req, res) => {
+  async (req, res) => { 
     try {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
+        console.log("errors",errors)
         return res.status(400).json({
           errors: errors.array(),
           message: "Email or Password is incorrect",
@@ -82,8 +91,7 @@ router.post(
       const { email, age, password, passwordConfirm } = req.body;
 
       const candidate = await User.findOne({ email });
-
-      // console.log(candidate)
+      // console.log(email, password)
 
       if (candidate) {
         return res
@@ -95,22 +103,29 @@ router.post(
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, age, password: hashedPassword });
 
+         console.log('user',user) 
         await user.save();
         // const result = await user.save();
 
-      //email
-            sendMail(user.email)
-              .then((result) => console.log('Email sent...', result))
-              .catch((error) => console.log(error.message));
+        //email
+
+        try {
+          const result = sendMail(user.email);
+
+          console.log('Email sent...', result);
+        }
+        catch(err) {
+          console.log(err)
+        }
 
         res.status(201).json({ message: "Registration completed" });
       } else {
         return res.status(400).json({ message: "Password is not correct" });
       }
-    } catch (e) {
+    } catch (e) {      
       res
         .status(500)
-        .json({ message: "Something is wrong, please, try again" });
+        .json({ message: e });
     }
   }
 );
@@ -130,13 +145,13 @@ router.post(
         return res.status(400).json({
           errors: errors.array(),
           message: "Email or Password is incorrect",
-        });
+        })
       }
 
       const { email, password } = req.body;
 
       const user = await User.findOne({ email });
-    //   console.log(user);
+      console.log(user);
       if (!user) {
         return res.status(400).json({ message: "User not found" });
       }
@@ -147,9 +162,11 @@ router.post(
         return res.status(400).json({ message: "Password is incorrect" });
       }
 
-      const token = jwt.sign({ userId: user.id }, "It is a big secret", {
-        expiresIn: "1h"
-      });
+      const token = jwt.sign(
+        { userId: user.id }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: "1h" }
+      );
 
       res.json({ token, userId: user.id });
     } catch (e) {
