@@ -6,7 +6,6 @@ const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 
-<<<<<<< HEAD
 
 require("dotenv").config();
 
@@ -15,8 +14,6 @@ require("dotenv").config();
 
 
 // // //email
-=======
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
 require("dotenv").config();
 
@@ -103,12 +100,7 @@ router.post(
       const { email, age, password, passwordConfirm } = req.body;
 
       const candidate = await User.findOne({ email });
-<<<<<<< HEAD
       // console.log(email, password)
-=======
-
-      console.log(candidate)
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
       if (candidate) {
         return res
@@ -124,7 +116,6 @@ router.post(
         await user.save();
 //         // const result = await user.save();
 
-<<<<<<< HEAD
         //email
 
         try {
@@ -135,12 +126,6 @@ router.post(
         catch(err) {
           console.log(err)
         }
-=======
-//       //email
-//             sendMail(user.email)
-//               .then((result) => console.log('Email sent...', result))
-//               .catch((error) => console.log(error.message));
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 
         res.status(201).json({ message: "Registration completed" });
       } else {
@@ -149,11 +134,7 @@ router.post(
     } catch (e) {      
       res
         .status(500)
-<<<<<<< HEAD
         .json({ message: e });
-=======
-        .json({ message: "Something is wrong, please, try again !!!" });
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
     }
   }
 );
