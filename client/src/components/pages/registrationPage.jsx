@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, Typography, TextField } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import Pop_reg from "../popup/pop_reg";
 import { useState } from "react";
@@ -14,16 +14,13 @@ export default function Registration() {
     console.log(response);
     axios({
       method: "POST",
-<<<<<<< HEAD
       url: "http://localhost:3500/api/auth/google",
       // url: "/api/auth/google",
-=======
-      // url: "http://localhost:3500/api/auth/google",
-      url: "/api/auth/google",
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
-      data: { tokenId: response.tokenId },
+      data: { tokenId: response.tokenId },      
     }).then((response) => {
       console.log("Google login success", response);
+      alert("Google login success");
+      setMainButtonActive(false)  
     });
   };
 
@@ -38,9 +35,11 @@ export default function Registration() {
       data: { accessToken: response.accessToken, userID: response.userID },
     }).then((response) => {
       console.log("Facebook login success, client side", response);
+      alert("Facebook login success");
+      setMainButtonActive(false)  
     });
   };
-
+  
   const { loading, error, request } = useHttp();
 
   const [form, setForm] = useState({
@@ -52,6 +51,9 @@ export default function Registration() {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
+  const [mainButtonActive, setMainButtonActive] = useState(true); 
+  // console.log(mainButtonActive)
+
   const loginHandler = async () => {
     try {
       const data = await request(
@@ -60,13 +62,20 @@ export default function Registration() {
         "POST",
         { ...form }
       );
-      console.log(data);
-    } catch (e) {}
+      // console.log(data);
+      alert("Login is complete");
+      setMainButtonActive(false)   
+      // console.log(mainButtonActive)       
+    } catch (e) {
+      alert(e)
+    }
   };
 
   const { t } = useTranslation();
 
   const [modalActive, setModalActive] = useState(false);
+
+  
 
   return (
     <Box className="main">
@@ -122,6 +131,12 @@ export default function Registration() {
         </div>
         <Pop_reg active={modalActive} setActive={setModalActive} />
       </div>
+      <Link to="/Location">
+      <button className="button"  disabled={mainButtonActive}  >
+        {t("Choose location")}
+      </button>
+      </Link>
+      
     </Box>
   );
 }

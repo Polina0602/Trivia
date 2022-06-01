@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Paper, Button, Typography } from "@mui/material";
+import { Paper, Button, Typography, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Map, MODES } from "../Map";
 import { useJsApiLoader } from "@react-google-maps/api";
@@ -48,10 +48,7 @@ export default function Location() {
 const onMarkerAdd = useCallback(
   (coordinates) => {
   setMarkers([coordinates])
-<<<<<<< HEAD
   setCenter(coordinates)       
-=======
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
 },
   [markers],
 )
@@ -62,11 +59,7 @@ const clear = useCallback(() => {
 
 useEffect(() => {
   getBrowserLocation().then((curLoc) => {
-<<<<<<< HEAD
     setMarkers([])            
-=======
-    // setMarkers([])
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
     setCenter(curLoc)
   })
   .catch((defaultLocation) => {
@@ -75,18 +68,13 @@ useEffect(() => {
 }, [])
 
   return (
-    <div className="main">
+    <div className="main">      
       <Typography variant="h1" sx={{ fontWeight: "bold" }}>
         {t("Location")}
       </Typography>
       <Paper className="map" elevation={3} >
         <Button onClick={() => {
-<<<<<<< HEAD
           setMode(MODES.SET_MARKER)
-=======
-          const mode = MODES.SET_MARKER
-          console.log()
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
         }}>
         <h2>{t("Choose from map")}</h2>
         </Button>
@@ -98,7 +86,6 @@ useEffect(() => {
         </div>
       </Paper>      
       <Paper className="map" elevation={3}>.
-<<<<<<< HEAD
       <Button 
         onClick={() => {
           getBrowserLocation().then((curLoc) => {
@@ -106,14 +93,14 @@ useEffect(() => {
             setCenter(curLoc)
           })
         }}>
-=======
-      <Button >
->>>>>>> 63c6dcbef875cb5396f3dad0f06250fcc4ce458e
         <h2>{t("Choose yours")}</h2>
         </Button>           
       </Paper>
 
       {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd}/> : <h2>Loading</h2>}
+      <Link className="button" to="/Questions">
+        {t("Start to Play")}
+      </Link>
     </div>
   );
 }

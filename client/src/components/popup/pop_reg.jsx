@@ -19,7 +19,7 @@ const Pop_reg = ({ active, setActive }) => {
     passwordConfirm: "",
   });
 
-  useEffect(() => {
+   useEffect(() => {
     message(error);
     clearError();
   }, [error, message, clearError]);
@@ -39,28 +39,29 @@ const Pop_reg = ({ active, setActive }) => {
       );
       message(data.messages);
       // console.log("registerHandler",data.message);
+      
       alert(data.message);
-
-      <Stack spacing={2}>
-        <Alert variant="filled" severity="success">
-          <AlertTitle>Success</AlertTitle>
-          This is a success alert — <strong>check it out!</strong>
-        </Alert>
-      </Stack>;
+      
+      // <Stack spacing={2}>
+      //   <Alert variant="filled" severity="success">
+      //     <AlertTitle>Success</AlertTitle>
+      //     This is a success alert — <strong>check it out!</strong>
+      //   </Alert>
+      // </Stack>;
     } catch (e) {
       message(e);
       // console.log("registerHandler",e)
-      // alert(e)
-      return (
-        <Stack sx={{ width: "100%" }}>
-          <Alert onClose={() => {}}>
-            This is a success alert — check it out!
-          </Alert>
-          {/* <Alert severity="warning">This is a warning alert — check it out!</Alert>
-          <Alert severity="info">This is an info alert — check it out!</Alert>
-          <Alert severity="success">This is a success alert — check it out!</Alert> */}
-        </Stack>
-      );
+      alert(e)
+      // return (
+      //   <Stack sx={{ width: "100%" }}>
+      //     <Alert onClose={() => {}}>
+      //       This is a success alert — check it out!
+      //     </Alert>
+      //     {/* <Alert severity="warning">This is a warning alert — check it out!</Alert>
+      //     <Alert severity="info">This is an info alert — check it out!</Alert>
+      //     <Alert severity="success">This is a success alert — check it out!</Alert> */}
+      //   </Stack>
+      // );
     }
   };
 
@@ -69,7 +70,9 @@ const Pop_reg = ({ active, setActive }) => {
     <div className={active ? "pop_reg active" : "pop_reg"}>
       <div className="pop_reg_content">
         <div className="pop_reg_close" onClick={() => setActive(false)}>
+        <Link to="/Location">
           <CancelIcon />
+        </Link>
         </div>
         <TextField
           id="standard-basic"
@@ -122,7 +125,9 @@ const Pop_reg = ({ active, setActive }) => {
           onClick={registerHandler}
           disabled={loading}
         >
+           
           {t("Registration")}
+          
         </Link>
       </div>
     </div>

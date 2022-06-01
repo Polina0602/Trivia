@@ -5,6 +5,16 @@
   color: #666
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor:default; 
+}
+
+.googleMap {
+  flex-basis: 100%!important;
+  margin-bottom: 25px;
+}
+
 .main {
   max-width: 1200px;
   margin: 0 auto;
@@ -21,12 +31,17 @@
   display: inline-block;
     font-size: 25px;
     background-color: #FFA800;
-    color: #FFFFFF;
+    color: #FFFFFF!important;
     padding: 10px 50px;
     border-radius: 15px;
     margin: 25px auto;
     text-decoration: none;
     cursor: pointer
+}
+
+.button:disabled {
+  background-color: #eabd66;
+  cursor:default;
 }
 
 .central_text {flex-basis: 100%!important;}
@@ -70,3 +85,50 @@ padding:25px 100px 25px 25px}
   font-weight: bolder!important;
   
 }
+
+.container {
+  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+.button-overall
+{
+  background-color: wheat;
+  border-radius: 10px;
+  border: 1px solid gray;
+  padding: 16px;
+  margin: 10px auto;
+  min-width: 400px;
+  max-width: 1000px;
+  text-align: center;
+  color:rgb(21, 34, 8);
+}
+
+.normal-button {
+  background-color: #9caf9c;
+  /* Green */
+  width: 390px;
+  height: 80px;
+  padding: 8px;
+  margin: 24px;
+  color: aqua;
+  font-weight: bolder;
+  font-size: large;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  justify-content: center;
+}
+
+.normal-button:hover {
+  
+  transform: scale(1.1);
+  transition: transform 150ms ease-in-out;
+  cursor: pointer;
+}  
