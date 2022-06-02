@@ -1,1 +1,2 @@
-# Trivia
+# Trivia 
+update Read Me
