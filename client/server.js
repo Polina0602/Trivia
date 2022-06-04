@@ -14,16 +14,18 @@ app.use(express.urlencoded({extended:false}))
 
 mongoose.connect("mongodb+srv://salim:salim@cluster0.idfuq.mongodb.net/newitemsDB?retryWrites=true&w=majority")
 const itemSchema={
-    answer:String,
-    option1:String,
-    option2:String,
-    option3:String,
-    option4:String,
+    question:String,
+    answer1:String,
+    answer2:String,
+    answer3:String,
+    answer4:String,
+    correct_answer:String,
+
 
 
 }
 const Item=mongoose.model("Item",itemSchema);
-
+console.log(itemSchema)
 /**app */
 
 
@@ -31,7 +33,7 @@ app.get("/items",(req,res)=>{
     Item.aggregate([{
         $match:{}
         
-    }, { $sample: { size: 1} }])
+    }, { $sample: { size:1} }])
    
     .then((items)=>res.json(items))
     .then(items=>console.log(items))
