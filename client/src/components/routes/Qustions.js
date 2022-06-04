@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState,useEffect} from 'react';
 import axios from 'axios';
+import { Rating } from '@mui/material';
 //reload=false;
 //function Qustion({data:{qustion,correc_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
    function Qustion(){
@@ -21,30 +22,37 @@ import axios from 'axios';
       //     }
     
       //   } 
+  function answers(){
+      //alert(Object.values(items));
+ items.forEach(Element=>{ 
+  const a=Element.correct_answer;
+   const b=Element.answer1.value;
+   const c=Element.answer2;
+   const d=Element.answer3;
+   const e=Element.answer4;
+   if(a==b){
+     alert(a);
+   }else{alert("no");}
+  console.log(a);
+
+
   
-      function correctanswer () {
-        alert('corecct');
-        window.location.reload();
-
-        //reload=false;
-      }
     
-      function uncorrectanswer(){
-       
-          alert('false try agin')
-        // reload=true;
-
-      }
-
+     })
+     
+    
+   
+  }
   
-    
     const [item,setItem]=useState(
       {
-        qustion:"",
-        correc_answer:"",
-        incorrect_answers1:"",
-        incorrect_answers2:"",
-        incorrect_answers3:"",
+        question:"",
+        answer1:"",
+        answer2:"",
+        answer3:"",
+        answer4:"",
+        correct_answer:"",
+        
         
       });
       function handelChange(event){
@@ -52,6 +60,7 @@ import axios from 'axios';
         setItem(prevInput=>{
           return(
             {
+              
               ...prevInput,
               [name]:value,
             }
@@ -60,14 +69,13 @@ import axios from 'axios';
     
       }
       const [items,setItems]=useState([{
-        qustion:"",
-        correc_answer:"",
-        incorrect_answers1:"",
-        incorrect_answers2:"",
-        incorrect_answers3:"",
-        
-    
-  
+        question:"",
+        answer1:"",
+        answer2:"",
+        answer3:"",
+        answer4:"",
+        correct_answer:"",
+
       }]);
       useEffect(()=>{
         fetch("http://localhost:3001/items")
@@ -121,6 +129,8 @@ import axios from 'axios';
       <div className="container">
           
         <div className="qustionClass">
+
+
          <h1>{qoust.text}</h1>
            {/* <input onChange={handelChange} name="qustion" value={item.qustion} placeholder="qustion"></input>
           <input onChange={handelChange} name="option1" value={item.option1} placeholder="option1"></input>
@@ -138,17 +148,16 @@ import axios from 'axios';
                  
           {items.map(item=>{
             return(
-              <h1 key={item} style={{background:'white',width:'86%',margin:'auto auto'}}>
-  
-               <h1 >{item.question }</h1>
-               <div >
+              <h1 key={items.qustion} style={{background:'white',width:'86%',margin:'auto auto'}}>
+                
+               <h1 >{item.question}</h1>
+               <div > 
                <p >
                  <h1>{Math.random}</h1>
-
-                <button onClick={correctanswer} className='normal-button' >{item.correc_answer}</button>
-                <button onClick={uncorrectanswer} className='normal-button'>{item.incorrect_answers1}</button>
-                <button onClick={uncorrectanswer} className='normal-button'>{item.incorrect_answers2}</button>
-                <button onClick={uncorrectanswer} className='normal-button'>{item.incorrect_answers3}</button>
+                <button  onClick={answers} className='normal-button'>{item.answer1}</button>
+                <button  onClick={answers} className='normal-button'>{item.answer2}</button>
+                <button  onClick={answers} className='normal-button'>{item.answer3}</button>
+                <button  onClick={answers} className='normal-button'>{item.answer4}</button>
                 </p>
                 </div>            
                 <button onClick={increase}  className='normal-button'>next question</button>    
