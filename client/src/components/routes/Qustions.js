@@ -5,42 +5,55 @@ import { Rating } from '@mui/material';
 //reload=false;
 //function Qustion({data:{qustion,correc_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
    function Qustion(){
-     
-    const [counter, setCounter] = useState(0);
- 
-      const increase = () => { 
-        
-        setCounter(counter => counter + 1);
-        
-        if(counter<5){
-       window.location.reload(false);
-  
-        }
-      };
+    var counter1=0;
+    var counter2=0;
+    var re=0;
+   function increase()
+   {
+    //window.location.reload();
+    re++;
+    alert(re);
+    if(re>5){
+    alert("re")
+    }
+    
+   }
+   function reload()
+    {
+      alert(counter1,counter2)
+    }
+    
       // function nextqustion() {
       //   window.location.reload();
       //     }
     
       //   } 
-  function answers(){
-      //alert(Object.values(items));
- items.forEach(Element=>{ 
-  const a=Element.correct_answer;
-   const b=Element.answer1.value;
-   const c=Element.answer2;
-   const d=Element.answer3;
-   const e=Element.answer4;
-   if(a==b){
-     alert(a);
-   }else{alert("no");}
-  console.log(a);
-
-
-  
-    
-     })
      
+  function answers(e){
+   
+//   let c=e.target.value;
+//  console.log(c);
+    //const a=e.target.value;
+    if(e==5){alert("b")}
+  if(e.target.value=="bill gates" || e.target.value=="1208" ||e.target.value=="Zichron Yaakov"||e.target.value=="1909"||e.target.value=="Sacramento")
+  {
+    // alert("ok");
+    counter1++
+   // window.location.reload();
+  //  alert( counter1)
+  }
+  else{
+    // alert("no");
+   // window.location.reload();
+    counter2++;
+  }
+   console.log(counter1,counter2);
+   
     
+    //       //alert(Object.values(items));
+//  items.forEach(Element=>{ 
+//       console.log(Element.Element);
+//      })
    
   }
   
@@ -154,13 +167,15 @@ import { Rating } from '@mui/material';
                <div > 
                <p >
                  <h1>{Math.random}</h1>
-                <button  onClick={answers} className='normal-button'>{item.answer1}</button>
-                <button  onClick={answers} className='normal-button'>{item.answer2}</button>
-                <button  onClick={answers} className='normal-button'>{item.answer3}</button>
-                <button  onClick={answers} className='normal-button'>{item.answer4}</button>
+                <button value={item.answer1} onClick={answers} className='normal-button'>{item.answer1}</button>
+                <button value={item.answer2} onClick={answers} className='normal-button'>{item.answer2}</button>
+                <button value={item.answer3} onClick={answers} className='normal-button'>{item.answer3}</button>
+                <button value={item.answer4} onClick={answers} className='normal-button'>{item.answer4}</button>
+
                 </p>
                 </div>            
-                <button onClick={increase}  className='normal-button'>next question</button>    
+                <button onClick={increase}  className='normal-button'>next question</button>  
+                <button onClick={reload}  className='normal-button'>check the result</button>    
               </h1>
               
             )
