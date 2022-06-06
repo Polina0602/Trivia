@@ -10,7 +10,7 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { getBrowserLocation } from '../Utils/geo'
 
-const API_KEY =  process.env.REACT_APP_API_KEY //"AIzaSyCWOLKQRayc_SOTSW34VQC88VrcN9hfnxo";
+const API_KEY = process.env.REACT_APP_API_KEY //"AIzaSyCWOLKQRayc_SOTSW34VQC88VrcN9hfnxo";
 console.log(API_KEY);
 
 const defaultCenter = {
@@ -26,8 +26,8 @@ export default function Location() {
   const { t } = useTranslation();
 
   const [center, setCenter] = useState(defaultCenter)
-  
-  const [mode, setMode] =useState(MODES.SET_MARKER)
+
+  const [mode, setMode] = useState(MODES.SET_MARKER)
 
   const [markers, setMarkers] = useState([])
 
@@ -40,32 +40,34 @@ export default function Location() {
   const onPlaceSelect = useCallback(
     (coordinates) => {
       setCenter(coordinates)
+
       console.log(coordinates)
+
     },
     [],
   )
 
-const onMarkerAdd = useCallback(
-  (coordinates) => {
-  setMarkers([coordinates])
-  setCenter(coordinates)       
-},
-  [markers],
-)
+  const onMarkerAdd = useCallback(
+    (coordinates) => {
+      setMarkers([coordinates])
+      setCenter(coordinates)
+    },
+    [markers],
+  )
 
-const clear = useCallback(() => {
-  setMarkers([])
-}, [])
+  const clear = useCallback(() => {
+    setMarkers([])
+  }, [])
 
-useEffect(() => {
-  getBrowserLocation().then((curLoc) => {
-    setMarkers([])            
-    setCenter(curLoc)
-  })
-  .catch((defaultLocation) => {
-    setCenter(defaultLocation)
-  });  
-}, [])
+  useEffect(() => {
+    getBrowserLocation().then((curLoc) => {
+      setMarkers([])
+      setCenter(curLoc)
+    })
+      .catch((defaultLocation) => {
+        setCenter(defaultLocation)
+      });
+  }, [])
 
   return (
     <div className="main">
@@ -76,7 +78,7 @@ useEffect(() => {
         <Button onClick={() => {
           setMode(MODES.SET_MARKER)
         }}>
-        <h2>{t("Choose from map")}</h2>
+          <h2>{t("Choose from map")}</h2>
         </Button>
       </Paper>
       <Paper className="map" elevation={3}>
@@ -84,20 +86,20 @@ useEffect(() => {
         <div className="addressSearchContainer">
           <Autocomplete isLoaded={isLoaded} onSelect={onPlaceSelect} />
         </div>
-      </Paper>      
+      </Paper>
       <Paper className="map" elevation={3}>.
-      <Button 
-        onClick={() => {
-          getBrowserLocation().then((curLoc) => {
-            setMarkers([])
-            setCenter(curLoc)
-          })
-        }}>
-        <h2>{t("Choose yours")}</h2>
-        </Button>           
+        <Button
+          onClick={() => {
+            getBrowserLocation().then((curLoc) => {
+              setMarkers([])
+              setCenter(curLoc)
+            })
+          }}>
+          <h2>{t("Choose yours")}</h2>
+        </Button>
       </Paper>
 
-      {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd}/> : <h2>Loading</h2>}
+      {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd} /> : <h2>Loading</h2>}
     </div>
   );
 }

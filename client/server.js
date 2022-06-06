@@ -33,7 +33,7 @@ app.get("/items",(req,res)=>{
     Item.aggregate([{
         $match:{}
         
-    }, { $sample: { size:5} }])
+    }, { $sample: { size:1} }])
    
     .then((items)=>res.json(items))
     .then(items=>console.log(items))
