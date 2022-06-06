@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Rating } from '@mui/material';
 //reload=false;
 //function Qustion({data:{qustion,correc_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
-   function Qustion(){
+   function Qustion1(){
     var counter1=0;
     var counter2=0;
     var re=0;
@@ -35,7 +35,7 @@ import { Rating } from '@mui/material';
 //  console.log(c);
     //const a=e.target.value;
     if(e==5){alert("b")}
-  if(e.target.value=="bill gates" || e.target.value=="1208" ||e.target.value=="Zichron Yaakov"||e.target.value=="1909"||e.target.value=="Sacramento")
+  if(e.target.value=="1974" || e.target.value=="43,323" ||e.target.value=="2018"||e.target.value=="5"||e.target.value=="30")
   {
     // alert("ok");
     counter1++
@@ -91,7 +91,7 @@ import { Rating } from '@mui/material';
 
       }]);
       useEffect(()=>{
-        fetch("http://localhost:3001/items")
+        fetch("http://localhost:3002/item1")
         .then(res=>{
           if(res.ok){
             return res.json();
@@ -185,5 +185,5 @@ import { Rating } from '@mui/material';
     );
   }
   
-  export default Qustion;
+  export default Qustion1;
   

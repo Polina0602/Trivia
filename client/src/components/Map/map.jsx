@@ -53,12 +53,18 @@ const Map = ({ center, mode, markers, onMarkerAdd }) => {
     if (mode === MODES.SET_MARKER) {
       const lat = loc.latLng.lat();
       const lng = loc.latLng.lng();
-      console.log( lat, lng )
+      if (lat > 32.04390507642045 && lat < 32.13145857097964 && lng > 34.78192094305317 && lng < 34.80686907015528) {
+        window.location.replace("http://localhost:3000/Qustions")
+
+      } if (lat > 32.69782788140576 && lat < 32.73956659741151 && lng > 35.29584777550964 && lng < 35.34540069648257) {
+        window.location.replace("http://localhost:3000/Qustions1")
+      }
+      console.log(lat, lng)
       onMarkerAdd({ lat, lng })
     }
-  },[mode])
+  }, [mode])
 
-  
+
 
   return (
     <div className="googleMap">
@@ -72,19 +78,19 @@ const Map = ({ center, mode, markers, onMarkerAdd }) => {
         options={defaultOptions}
       >
         {/* <CurrentLocationMarker position={center} />  */}
-        
-            <Marker position={center} />
-          
-            {markers.map((pos) => {
-              return <Marker position={pos} />
-            })}
-          
-        
-        
-        
-         <></>
-       </GoogleMap>
-     </div>
+
+        <Marker position={center} />
+
+        {markers.map((pos) => {
+          return <Marker position={pos} />
+        })}
+
+
+
+
+        <></>
+      </GoogleMap>
+    </div>
   );
 };
 

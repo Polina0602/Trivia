@@ -7,6 +7,8 @@ import Registration from "./components/pages/registrationPage";
 import Location from "./components/pages/locationPage";
 import { Routes, Route, useRoutes } from "react-router-dom";
 import Qustions from "./components/routes/Qustions"
+import Qustions1 from "./components/routes/Qustions1"
+
 
 function App() {
   const { t } = useTranslation(); //translation
@@ -20,6 +22,7 @@ function App() {
         <Route path="/Registration" element={<Registration />} />
         <Route path="/Location" element={<Location />} />
         <Route path="/Qustions" element={<Qustions />} />
+        <Route path="/Qustions1" element={<Qustions1></Qustions1>} />
 
       </Routes>
     </div>
