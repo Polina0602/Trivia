@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node index.js",
+    "start": "node --es-module-specifier-resolution=node index.js ",
     "dev": "nodemon --es-module-specifier-resolution=node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
