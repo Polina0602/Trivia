@@ -1,4 +1,5 @@
 require("dotenv").config();
+// const questionRouter = require('./routers/questions.router')
 const port = process.env.PORT || 3500;
 
 const express = require("express");
@@ -13,6 +14,7 @@ app.options('*', cors());
 app.use(express.json())
 
 app.use('/api/auth', require('./routers/auth.router'))
+// app.use('/questions',require('./routers/questions.router'))
 
 async function start() {
   try {
@@ -30,6 +32,7 @@ async function start() {
     process.exitCode(1)
   }
 }
+
 
 start()
 

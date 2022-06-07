@@ -32,14 +32,14 @@ exports.googlelogin = (req, res) => {
           let password = email + "222";
           let newUser = new User({ email, password });
           newUser.save();
-          
+          console.log("Registration completed!");
         } else {
           const token = jwt.sign(
             { userId: googleUser.id },  
             process.env.JWT_SECRET, 
             {expiresIn: "1h",})
           res.json({ token, userId: googleUser.id });
-          console.log("User has login!");
+          console.log("User has login!"); 
         }
         
       }
@@ -58,7 +58,7 @@ exports.facebooklogin = (req, res) => {
     .then(async(res) => {
       
       const { email } = res;
-      // console.log({grurl});
+      //console.log({grurl});
 
       const facebookUser = await User.findOne({ email });
       
@@ -66,6 +66,7 @@ exports.facebooklogin = (req, res) => {
         let password = email + "333";
         let newUser = new User({email, password});
         newUser.save()
+        console.log("Registration completed!");
       } else {
         const token = jwt.sign(
           {userId: facebookUser.id }, 

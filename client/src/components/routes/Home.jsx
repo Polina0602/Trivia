@@ -8,7 +8,7 @@ function Home() {
     <h3>  <Link to="Registration">Click to view our Regestion page</Link></h3>
     <h3>  <Link to="Qustions">Click to view our Qustions page</Link></h3>
 
-     
+    
     </div>
     
   );
