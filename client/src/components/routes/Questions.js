@@ -3,12 +3,27 @@ import {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Rating } from '@mui/material';
 import { orange } from '@mui/material/colors';
-import { Box, Typography  } from "@mui/material";
+
+import { Box, Typography, TextField } from "@mui/material";
+import io from "socket.io-client";
+const socket=io.connect("http://localhost:3001")
+
+
+
 
 //reload=false;
 //function Qustion({data:{qustion,correct_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
  
 function Questions(){
+  const sendmessage=()=>{   
+  };
+  useEffect(()=>{
+    socket.on("res_mes",(data)=>{
+      alert(data);
+    })
+  })
+
+
     var counter1=0;
     var counter2=0;
     var re=0;
@@ -19,7 +34,9 @@ function Questions(){
       re = location.search;
       // alert('re ' + re )
       re++;
+
       window.location.assign("http://localhost:3000/Questions" 
+
       );
       console.log('re ' + re )
       if(re>5){
@@ -88,16 +105,19 @@ function Questions(){
       })    
     }
 
+
     const [items,setItems]=useState([{
+
         question:"",
         answer1:"",
         answer2:"",
         answer3:"",
         answer4:"",
         correct_answer:"",
-    }]);
 
-    useEffect(()=>{
+      }]);
+
+      useEffect(()=>{
         fetch("http://localhost:3500/items")
         .then(res=>{
           if(res.ok){
@@ -105,7 +125,9 @@ function Questions(){
           }
         }).then(jsonRes=>setItems(jsonRes))  
         .catch(err=>console.log(err));
+
     },[]);
+
      
   //  function Additem(event){
   //    event.preventDefault();
@@ -134,12 +156,14 @@ function Questions(){
       const [qoust,setqutes]=useState('');
 
       const getqute=()=>{
+
           fetch("http://localhost:3500/items")
           .then(res=>res.json())
           .then(data=>{
             //let randomnum=Math.floor(Math.random()*data.length);
             setqutes(data);
           })
+
       }
 
       function fifty() {
@@ -148,6 +172,7 @@ function Questions(){
       } 
 
       const [color, setColor] = useState("orange")
+
   
       return (
         <div className="container">          
@@ -163,6 +188,7 @@ function Questions(){
           <input onChange={handelChange} name="qustion" value={item.qustion}  placeholder="qustion"></input> */}
        {/* <button onClick={Additem}>Additem</button> */}
           
+
           {/* <button onClick={getqute}>get items</button>  */}
           </div>
               
@@ -170,6 +196,9 @@ function Questions(){
           function answers(event,color){
             console.log(item.correct_answer);
             console.log(event.target.value)
+            
+            socket.emit("send_message",event.target.value)
+            
             if(event.target.value === item.correct_answer)
             {    
               setColor("green")
@@ -256,6 +285,7 @@ function Questions(){
     );
   }
   
+
   export default Questions;
   
   
