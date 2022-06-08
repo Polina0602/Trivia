@@ -43,5 +43,5 @@ console.log(itemSchema1)
 
 // })
 app.listen(port,function(){
-    console.log("exprees port running server1");
+    console.log("express port running server1");
 });

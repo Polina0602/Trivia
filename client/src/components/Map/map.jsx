@@ -54,7 +54,7 @@ const Map = ({ center, mode, markers, onMarkerAdd }) => {
       const lat = loc.latLng.lat();
       const lng = loc.latLng.lng();
       if (lat > 32.04390507642045 && lat < 32.13145857097964 && lng > 34.78192094305317 && lng < 34.80686907015528) {
-        window.location.replace("http://localhost:3000/Qustions")
+        window.location.replace("http://localhost:3000/Questions")
 
       } if (lat > 32.69782788140576 && lat < 32.73956659741151 && lng > 35.29584777550964 && lng < 35.34540069648257) {
         window.location.replace("http://localhost:3000/Qustions1")

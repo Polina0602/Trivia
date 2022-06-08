@@ -24,11 +24,11 @@
   display: inline-block;
   font-size: 25px;
   background-color: #FFA800;
-  color: #FFFFFF;
+  color: #FFFFFF!important;
   padding: 10px 50px;
   border-radius: 15px;
   margin: 25px auto;
-  text-decoration: none;
+  text-decoration: none!important;
   cursor: pointer
 }
 
@@ -52,6 +52,11 @@ h1 {
 .map {
   flex-basis: calc(100%/3 - 50px) !important;
   margin: 25px
+}
+
+.googleMap {
+  flex-basis: 100%!important;
+  margin-bottom: 25px;
 }
 
 .label+.css-1480iag-MuiInputBase-root-MuiInput-root {

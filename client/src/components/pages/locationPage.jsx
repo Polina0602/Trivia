@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Paper, Button, Typography, Link } from "@mui/material";
+import { Paper, Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Map, MODES } from "../Map";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { Autocomplete } from "../Autocomplete/autocomplete";
+import { Link } from "react-router-dom";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -85,7 +86,7 @@ useEffect(() => {
           <Autocomplete isLoaded={isLoaded} onSelect={onPlaceSelect} />
         </div>
       </Paper>      
-      <Paper className="map" elevation={3}>.
+      <Paper className="map" elevation={3}>
       <Button 
         onClick={() => {
           getBrowserLocation().then((curLoc) => {
@@ -96,11 +97,14 @@ useEffect(() => {
         <h2>{t("Choose yours")}</h2>
         </Button>           
       </Paper>
-
+      
       {isLoaded ? <Map center={center} mode={mode} markers={markers} onMarkerAdd={onMarkerAdd}/> : <h2>Loading</h2>}
-      <Link className="button" to="/Questions">
-        {t("Start to Play")}
-      </Link>
+      
+      
+        <Link className="button" to="/Questions">
+          {t("Start to Play")}
+        </Link>
+      
     </div>
   );
 }

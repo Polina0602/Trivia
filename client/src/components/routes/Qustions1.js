@@ -34,8 +34,8 @@ import { Rating } from '@mui/material';
 //   let c=e.target.value;
 //  console.log(c);
     //const a=e.target.value;
-    if(e==5){alert("b")}
-  if(e.target.value=="1974" || e.target.value=="43,323" ||e.target.value=="2018"||e.target.value=="5"||e.target.value=="30")
+    if(e===5){alert("b")}
+  if(e.target.value==="1974" || e.target.value==="43,323" ||e.target.value==="2018"||e.target.value==="5"||e.target.value==="30")
   {
     // alert("ok");
     counter1++
@@ -91,7 +91,7 @@ import { Rating } from '@mui/material';
 
       }]);
       useEffect(()=>{
-        fetch("http://localhost:3002/item1")
+        fetch("http://localhost:3500/item1")
         .then(res=>{
           if(res.ok){
             return res.json();
@@ -129,7 +129,7 @@ import { Rating } from '@mui/material';
    
    const [qoust,setqutes]=useState('');
    const getqute=()=>{
-     fetch("http://localhost:3001/items")
+     fetch("http://localhost:3500/items")
      .then(res=>res.json())
      .then(data=>{
        //let randomnum=Math.floor(Math.random()*data.length);
