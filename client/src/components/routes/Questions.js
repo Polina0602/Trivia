@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import axios from 'axios';
 import { Rating } from '@mui/material';
 import { orange } from '@mui/material/colors';
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography  } from "@mui/material";
 
 //reload=false;
 //function Qustion({data:{qustion,correct_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
@@ -19,7 +19,7 @@ function Questions(){
       re = location.search;
       // alert('re ' + re )
       re++;
-      window.location.assign("http://localhost:3500/Questions" 
+      window.location.assign("http://localhost:3000/Questions" 
       );
       console.log('re ' + re )
       if(re>5){
@@ -88,16 +88,16 @@ function Questions(){
       })    
     }
 
-      const [items,setItems]=useState([{
+    const [items,setItems]=useState([{
         question:"",
         answer1:"",
         answer2:"",
         answer3:"",
         answer4:"",
         correct_answer:"",
-      }]);
+    }]);
 
-      useEffect(()=>{
+    useEffect(()=>{
         fetch("http://localhost:3500/items")
         .then(res=>{
           if(res.ok){
@@ -105,7 +105,7 @@ function Questions(){
           }
         }).then(jsonRes=>setItems(jsonRes))  
         .catch(err=>console.log(err));
-      },[]);
+    },[]);
      
   //  function Additem(event){
   //    event.preventDefault();
@@ -132,23 +132,23 @@ function Questions(){
   //    });
   //  }
    
-        const [qoust,setqutes]=useState('');
+      const [qoust,setqutes]=useState('');
 
-        const getqute=()=>{
+      const getqute=()=>{
           fetch("http://localhost:3500/items")
           .then(res=>res.json())
           .then(data=>{
             //let randomnum=Math.floor(Math.random()*data.length);
             setqutes(data);
           })
-        }
+      }
 
-        function fifty() {
+      function fifty() {
                   
                   
-        } 
+      } 
 
-        const [color, setColor] = useState("orange")
+      const [color, setColor] = useState("orange")
   
       return (
         <div className="container">          
@@ -164,52 +164,96 @@ function Questions(){
           <input onChange={handelChange} name="qustion" value={item.qustion}  placeholder="qustion"></input> */}
        {/* <button onClick={Additem}>Additem</button> */}
           
-          
           {/* <button onClick={getqute}>get items</button>  */}
-                 </div>
+          </div>
               
-          {items.map(item=>{
-            // var a = item.correct_answer;
-            // console.log(a)            
-         
-            function answers(event,color){
-              console.log(item.correct_answer);
-              console.log(event.target.value)
-              if(event.target.value === item.correct_answer)
-              {    
-                setColor("green")
-                // counter1++           
-                alert('answer is right ')                
-              }
-              else{
-                setColor("red")
-                // counter2++
-                alert('wrong answer ')               
-              }
+        {items.map(item=>{           
+          function answers(event,color){
+            console.log(item.correct_answer);
+            console.log(event.target.value)
+            if(event.target.value === item.correct_answer)
+            {    
+              setColor("green")
+              // counter1++           
+              alert('answer is right ')                
             }
+            else{
+              setColor("red")
+              // counter2++
+              alert('wrong answer ')               
+            }
+        }
           
-            return( 
-              <div key={items.qustion} style={{background:'white',width:'86%',margin:'auto auto'}}>
-                <h1 >{item.question}</h1>
-                <div > 
-                  <p >
-                 {/* <h1>{Math.random}</h1> */}
-                  <button id='1' value={item.answer1} style={{backgroundColor: {color}}} onClick={answers} className='normal-button'>{item.answer1}</button>                 
-                  <button id='2' value={item.answer2} onClick={answers} className='normal-button'>{item.answer2}</button>
-                  <button id='3' value={item.answer3} onClick={answers} className='normal-button'>{item.answer3}</button>
-                  <button id='4' value={item.answer4} onClick={answers} className='normal-button'>{item.answer4}</button>
+        return( 
+          <Box className="questions main">
+            <Typography 
+                className="questionTitle" 
+                key={items.qustion} 
+                sx={{ fontWeight: "bold", fontSize: 52, color: "#0E3B7F" }}>
+              {item.question}
+            </Typography> 
 
-                  </p>
-                </div> 
-                <Box>           
-                  <button onClick={increase}  className='normal-button'>next question</button>  
-                  <button onClick={reload}  className='normal-button'>check the result</button> 
-                  <button id='123' onClick={fifty} className='normal-button'>50 / 50</button> 
-                </Box>  
-              </div>              
-            )
-          })}        
-      </div>
+            <div className="ques_left_side">
+              <button 
+                  id='1' 
+                  className='normal-button'
+                  value={item.answer1} 
+                  style={{backgroundColor: {color}}} 
+                  onClick={answers}
+              >
+                {item.answer1}
+              </button>                 
+              <button 
+                  id='2' 
+                  className='normal-button'
+                  value={item.answer2} 
+                  onClick={answers} 
+              >
+                {item.answer2}
+              </button>
+              <button 
+                onClick={increase}  
+                className='button'
+              >
+                next question
+              </button>            
+            </div>
+
+            <div className="ques_right_side">              
+              <button 
+                  id='3' 
+                  value={item.answer3} 
+                  onClick={answers} 
+                  className='normal-button'
+              >
+                {item.answer3}
+              </button>
+              <button 
+                  id='4' 
+                  value={item.answer4} 
+                  onClick={answers} 
+                  className='normal-button'
+              >
+                {item.answer4}
+              </button>               
+              <button 
+                onClick={reload}  
+                className='button'
+              >
+                check the result
+              </button>               
+          </div>              
+              <button 
+                id='123' 
+                onClick={fifty} 
+                className='button'
+                >
+                  50 / 50
+                </button> 
+          </Box>                        
+        )
+      })}        
+        </div>
     );
   }
   
