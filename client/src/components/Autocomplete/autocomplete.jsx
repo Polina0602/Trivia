@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import s from "./autocomplete.module.css";
 import { Routes, Route, useRoutes, Link } from "react-router-dom";
-import Qustions from "../routes/Qustions";
+import Questions from "../routes/Questions";
 
 
 // import Location from "./components/pages/locationPage";
@@ -26,7 +26,7 @@ import usePlacesAutocomplete, {
 import useOnclickOutside from "react-cool-onclickoutside";
 
 <Routes>
-  <Route path="/Qustions" element={<Qustions />}></Route>
+  <Route path="/Questions" element={<Questions />}></Route>
 
 
 </Routes>
@@ -57,16 +57,16 @@ export const Autocomplete = ({ isLoaded, onSelect }) => {
     setValue(e.target.value);
 
 
-    if (e.target.value == "555") {
-      window.location.replace("http://localhost:3000/Qustions")
+    if (e.target.value === "555") {
+      window.location.replace("http://localhost:3000/Questions")
     }
 
 
   };
   function checklocation(e) {
-    if (e.target.value == "תל אביב") {
-      window.location.replace("http://localhost:3000/Qustions")
-    }if(e.target.value=="נוף הגליל"){
+    if (e.target.value === "תל אביב") {
+      window.location.replace("http://localhost:3000/Questions")
+    }if(e.target.value==="נוף הגליל"){
       window.location.replace("http://localhost:3000/Qustions1");
     }
     else {
