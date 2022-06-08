@@ -4,11 +4,24 @@ import axios from 'axios';
 import { Rating } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import { Box, Typography, TextField } from "@mui/material";
+import io from "socket.io-client";
+const socket=io.connect("http://localhost:3001")
+
+
 
 //reload=false;
 //function Qustion({data:{qustion,correct_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
  
 function Questions(){
+  const sendmessage=()=>{
+   
+  };
+  useEffect(()=>{
+    socket.on("res_mes",(data)=>{
+      alert(data);
+    })
+  })
+
     var counter1=0;
     var counter2=0;
     var re=0;
@@ -173,21 +186,28 @@ function Questions(){
             // console.log(a)            
          
             function answers(event,color){
+
+              socket.emit("send_message",event.target.value)
+
               console.log(item.correct_answer);
               console.log(event.target.value)
               if(event.target.value === item.correct_answer)
               {    
+           
+             
                 setColor("green")
                 // counter1++           
                 alert('answer is right ')                
               }
               else{
+                
                 setColor("red")
                 // counter2++
                 alert('wrong answer ')               
               }
+              
             }
-          
+           
             return( 
               <div key={items.qustion} style={{background:'white',width:'86%',margin:'auto auto'}}>
                 <h1 >{item.question}</h1>
@@ -210,8 +230,11 @@ function Questions(){
             )
           })}        
       </div>
+      
     );
+    
   }
+  
   
   export default Questions;
   

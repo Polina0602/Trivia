@@ -1,6 +1,9 @@
+
+const http=require("http");
+const {Server}=require("socket.io");
+const port = process.env.PORT || 3500;
 require("dotenv").config();
 // const questionRouter = require('./routers/questions.router')
-const port = process.env.PORT || 3500;
 
 const express = require("express");
 const app = express();
@@ -39,6 +42,7 @@ async function start() {
 }
 
 const itemSchema={
+  id:String,
   question:String,
   answer1:String,
   answer2:String,
@@ -50,6 +54,7 @@ const Item=mongoose.model("Item",itemSchema);
 console.log(itemSchema)
 
 const itemSchema1={
+ 
   question:String,
   answer1:String,
   answer2:String,
@@ -61,14 +66,17 @@ const Item1=mongoose.model("Item1",itemSchema1);
 console.log(itemSchema1)
 
 app.get("/items",(req,res)=>{
-  Item.aggregate([{
-      $match:{}
+  Item.find()
+  .then((items) => res.json(items))
+  .catch((err) => res.status(400).json("Error: " + err));
+  // Item.aggregate([{
+  //     $match:{}
       
-  }, { $sample: { size:1} }])
+  // }, { $sample: { size:5} }])
  
-  .then((items)=>res.json(items))
-  .then(items=>console.log(items))
-  .catch((err)=>res.status(400).json("error:"+ err));
+  // .then((items)=>res.json(items))
+  // .then(items=>console.log(items))
+  // .catch((err)=>res.status(400).json("error:"+ err));
 
 });
 
@@ -96,8 +104,27 @@ app.post("/newitem",(req,res)=>{
   .catch(err=>res.status(400).json('Error'+err))
 
 })
-start()
+const server=http.createServer(app)
+const io=new Server(server,{
+  cors:{
+    origin:"http://localhost:3000",
+    methods:["GET","POST"],
+  },
+});
 
+io.on("connect",(socket)=>{
+//console.log(`user connect: ${socket.id}`)
+socket.on("send_message",(data)=>{
+  console.log(data);
+  socket.broadcast.emit("res_mes",data)
+})
+})
+server.listen(3001,()=>{
+  console.log("socket is running")
+});
+
+start()
+ 
 
 
 
