@@ -14,6 +14,18 @@
   flex-wrap: wrap;
 }
 
+.questions {
+  max-width: none;
+}
+
+.questions>div {
+  flex-basis: calc(100%/2 - 50px);
+}
+
+.questionTitle {
+  flex-basis: 100%;
+}
+
 .main>div {
   flex-basis: calc(100%/2 - 200px);
   display: flex;
@@ -46,6 +58,14 @@ h1 {
 }
 
 .right_side {
+  padding: 25px 25px 25px 100px
+}
+
+.ques_left_side {
+  padding: 25px 100px 25px 25px
+}
+
+.ques_right_side {
   padding: 25px 25px 25px 100px
 }
 
@@ -119,9 +139,9 @@ h1 {
 }
 
 .normal-button {
-  background-color: #9caf9c;
+  background-color: #fffde7;
   /* Green */
-  width: 390px;
+  width: 650px;
   height: 80px;
   padding: 8px;
   margin: 24px;
@@ -130,7 +150,7 @@ h1 {
   font-size: large;
   border-radius: 10px;
   outline: none;
-  border: none;
+  border: solid 1px #FFA800;
   justify-content: center;
 }
 

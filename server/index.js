@@ -42,6 +42,7 @@ async function start() {
 }
 
 const itemSchema={
+
   id:String,
   question:String,
   answer1:String,
@@ -54,7 +55,6 @@ const Item=mongoose.model("Item",itemSchema);
 console.log(itemSchema)
 
 const itemSchema1={
- 
   question:String,
   answer1:String,
   answer2:String,
@@ -66,6 +66,7 @@ const Item1=mongoose.model("Item1",itemSchema1);
 console.log(itemSchema1)
 
 app.get("/items",(req,res)=>{
+
   Item.find()
   .then((items) => res.json(items))
   .catch((err) => res.status(400).json("Error: " + err));
@@ -104,6 +105,7 @@ app.post("/newitem",(req,res)=>{
   .catch(err=>res.status(400).json('Error'+err))
 
 })
+
 const server=http.createServer(app)
 const io=new Server(server,{
   cors:{
