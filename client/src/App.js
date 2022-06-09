@@ -6,8 +6,9 @@ import { FrontPage } from "./components/pages/frontPage";
 import Registration from "./components/pages/registrationPage";
 import Location from "./components/pages/locationPage";
 import { Routes, Route, useRoutes } from "react-router-dom";
-import Questions from "./components/routes/Questions"
+import Questions from "./components/routes/Questions";
 import Qustions1 from "./components/routes/Qustions1"
+import Results from "./components/pages/resultsPage"
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Location" element={<Location />} />
         <Route path="/Questions" element={<Questions />} />
         <Route path="/Qustions1" element={<Qustions1></Qustions1>} />
+        <Route path="/Results" element={<Results />} />
 
       </Routes>
     </div>
