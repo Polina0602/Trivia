@@ -15,6 +15,11 @@ const socket=io.connect("http://localhost:3001")
 //function Qustion({data:{qustion,correct_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
  
 function Questions(){
+
+  const [color, setColor] = useState("#fffde7")
+  const [colorText, setColorText] = useState("#666")
+  const [buttonActive, setButtonActive] = useState(false)
+
   const sendmessage=()=>{   
   };
   useEffect(()=>{
@@ -172,7 +177,7 @@ function Questions(){
                   
       } 
 
-      const [color, setColor] = useState("orange")
+     
 
   
       return (
@@ -194,20 +199,25 @@ function Questions(){
           </div>
               
         {items.map(item=>{           
-          function answers(event,color){
+          function answers(event){
             console.log(item.correct_answer);
             console.log(event.target.value)
             
             socket.emit("send_message",event.target.value)
             
             if(event.target.value === item.correct_answer)
-            {    
+            {  
+              
               setColor("green")
+              setColorText("white")
+              setButtonActive(true)
               // counter1++           
               alert('answer is right ')                
             }
             else{
               setColor("red")
+              setColorText("white")
+              setButtonActive(true)
               // counter2++
               alert('wrong answer ')               
             }
@@ -218,7 +228,7 @@ function Questions(){
             <Typography 
                 className="questionTitle" 
                 key={items.qustion} 
-                sx={{ fontWeight: "bold", fontSize: 52, color: "#0E3B7F" }}>
+                sx={{ fontWeight: "bold", fontSize: 52, color: "#666" }}>
               {item.question}
             </Typography> 
 
@@ -227,7 +237,8 @@ function Questions(){
                   id='1' 
                   className='normal-button'
                   value={item.answer1} 
-                  style={{backgroundColor: {color}}} 
+                  style={{backgroundColor: color, color: colorText}} 
+                  disabled={buttonActive}
                   onClick={answers}
               >
                 {item.answer1}
@@ -236,6 +247,8 @@ function Questions(){
                   id='2' 
                   className='normal-button'
                   value={item.answer2} 
+                  style={{backgroundColor: color, color: colorText}} 
+                  disabled={buttonActive}
                   onClick={answers} 
               >
                 {item.answer2}
@@ -252,7 +265,9 @@ function Questions(){
               <button 
                   id='3' 
                   value={item.answer3} 
-                  onClick={answers} 
+                  onClick={answers}
+                  style={{backgroundColor: color, color: colorText}} 
+                  disabled={buttonActive} 
                   className='normal-button'
               >
                 {item.answer3}
@@ -260,6 +275,8 @@ function Questions(){
               <button 
                   id='4' 
                   value={item.answer4} 
+                  style={{backgroundColor: color, color: colorText}} 
+                  disabled={buttonActive}
                   onClick={answers} 
                   className='normal-button'
               >
