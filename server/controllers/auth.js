@@ -53,27 +53,27 @@ exports.facebooklogin = (req, res) => {
   let grurl = `https://graph.facebook.com/v2.11/${userID}/?fields=id,email&access_token=${accessToken}`;
   fetch(grurl, {
     method: "GET",
-  })
-    .then((res) => res.json())
-    .then(async(res) => {
-      
-      const { email } = res;
+  })    
+    .then(async(response) => {
+      const data = await response.json()
+      const { email } = data;        
       //console.log({grurl});
-
       const facebookUser = await User.findOne({ email });
       
       if(!facebookUser){       
         let password = email + "333";
         let newUser = new User({email, password});
         newUser.save()
+         res.json( email );
         console.log("Registration completed!");
       } else {
         const token = jwt.sign(
           {userId: facebookUser.id }, 
           process.env.JWT_SECRET, 
           {expiresIn: "1h"})
-        res.json({ token, userId:facebookUser.id });         
+          res.json({ token, userId:facebookUser.id });                
         console.log("User has login!");
-      }      
+      }       
+      
     });
 };

@@ -19,7 +19,7 @@
 }
 
 .questions>div {
-  flex-basis: calc(100%/2 - 50px);
+  flex-basis: calc(100%/2 - 150px);
 }
 
 .questionTitle {
@@ -141,11 +141,11 @@ h1 {
 .normal-button {
   background-color: #fffde7;
   /* Green */
-  width: 650px;
+  width: 550px;
   height: 80px;
   padding: 8px;
   margin: 24px;
-  color: rgb(0, 3, 3);
+  color: #666;
   font-weight: bolder;
   font-size: large;
   border-radius: 10px;

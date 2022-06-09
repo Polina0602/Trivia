@@ -19,7 +19,8 @@ const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 
 // These id's and secrets should come from .env file.
-const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
+// const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b.apps.googleusercontent.com'
+const CLIENT_ID = '602070662525-cg5up3456lcbdngu7nhji2j6inpi8t1b'
 const CLIENT_SECRET = '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'
 const REFRESH_TOKEN = '1//04Nh8YSb1wH3PCgYIARAAGAQSNwF-L9IrR-GTcsE5kkj2GJC3b-rQlogesx35R2TVc4TUABfIBHKxs48hxyYrVYNBzC_KhnT35uk'
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
@@ -33,6 +34,7 @@ const oAuth2Client = new google.auth.OAuth2(
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
   
 async function sendMail(recipient) {
+  
   try {
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -110,8 +112,8 @@ router.post(
         //email
 
         try {
-          const result = sendMail(user.email);
-
+          // const result = sendMail(user.email);
+          const result = sendMail('ikatalkin67@gmail.com');          
           console.log('Email sent...', result);
         }
         catch(err) {
