@@ -33,42 +33,42 @@ const oAuth2Client = new google.auth.OAuth2(
   
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
   
-async function sendMail(recipient) {
+// async function sendMail(recipient) {
   
-  try {
-    const accessToken = await oAuth2Client.getAccessToken();
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-    const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              type: 'OAuth2',
-              user: 'ikatalkin67@gmail.com',
-              clientId: CLIENT_ID,
-              clientSecret: CLIENT_SECRET,
-              refreshToken: REFRESH_TOKEN,
-              accessToken: accessToken,
-            },
-          });
+//     const transport = nodemailer.createTransport({
+//             service: 'gmail',
+//             auth: {
+//               type: 'OAuth2',
+//               user: 'ikatalkin67@gmail.com',
+//               clientId: CLIENT_ID,
+//               clientSecret: CLIENT_SECRET,
+//               refreshToken: REFRESH_TOKEN,
+//               accessToken: accessToken,
+//             },
+//           });
 
-          const mailOptions = {
-                    from: 'TRIVIA <ikatalkin67@gmail.com>',
-                    to: recipient,
-                    subject: 'Hello from Trivia',
-                    text: 'Thank you for registering.  Have a fun game!',
-                    html: '<h3>Thank you for registering.  Have a fun game!</h3>',
-                };
+//           const mailOptions = {
+//                     from: 'TRIVIA <ikatalkin67@gmail.com>',
+//                     to: recipient,
+//                     subject: 'Hello from Trivia',
+//                     text: 'Thank you for registering.  Have a fun game!',
+//                     html: '<h3>Thank you for registering.  Have a fun game!</h3>',
+//                 };
 
-                console.log(CLIENT_ID)
-                const result = await transport.sendMail(mailOptions);
-                console.log(result)
-                    return result;
+//                 console.log(CLIENT_ID)
+//                 const result = await transport.sendMail(mailOptions);
+//                 console.log(result)
+//                     return result;
           
         
-  } catch (error) {
-        return error;
-      }
-}  
-// /api/auth/register
+//   } catch (error) {
+//         return error;
+//       }
+// }  
+// // /api/auth/register
 
 router.post(
   "/register",
@@ -107,20 +107,23 @@ router.post(
 
          console.log('user',user) 
         await user.save();
+        console.log(user.id)
+
         // const result = await user.save();
 
         //email
 
-        try {
-          // const result = sendMail(user.email);
-          const result = sendMail('ikatalkin67@gmail.com');          
-          console.log('Email sent...', result);
-        }
-        catch(err) {
-          console.log(err)
-        }
+        // try {
+        //   // const result = sendMail(user.email);
+        //   // const result = sendMail('ikatalkin67@gmail.com');          
+        //   console.log('Email sent...', result);
+        // }
+        // catch(err) {
+        //   console.log(err)
+        // }
 
         res.status(201).json({ message: "Registration completed" });
+        console.log("Registration completed")
       } else {
         return res.status(400).json({ message: "Password is not correct" });
       }
