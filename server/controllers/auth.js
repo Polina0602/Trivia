@@ -30,8 +30,14 @@ exports.googlelogin = (req, res) => {
       } else {        
         if (!googleUser) {
           let password = email + "222";
-          let newUser = new User({ email, password });
+          let newUser = new User({ email, password });          
           newUser.save();
+         
+          const token = jwt.sign(
+            { userId: newUser.id },  
+            process.env.JWT_SECRET, 
+            {expiresIn: "1h",})
+            res.json({ token, userId: newUser.id });
           console.log("Registration completed!");
         } else {
           const token = jwt.sign(
@@ -64,7 +70,14 @@ exports.facebooklogin = (req, res) => {
         let password = email + "333";
         let newUser = new User({email, password});
         newUser.save()
-         res.json( email );
+
+        const token = jwt.sign(
+          { userId: newUser.id },  
+          process.env.JWT_SECRET, 
+          {expiresIn: "1h",})
+          res.json({ token, userId: newUser.id });
+
+        //  res.json( email );
         console.log("Registration completed!");
       } else {
         const token = jwt.sign(

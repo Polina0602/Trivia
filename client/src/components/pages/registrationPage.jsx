@@ -20,7 +20,8 @@ export default function Registration() {
     }).then((response) => {
       console.log("Google login success", response);
       alert("Google login success");
-      setMainButtonActive(false)  
+      setMainButtonActive(false) 
+      localStorage.setItem("userToken",response.data.token) 
     });
   };
 
@@ -36,7 +37,8 @@ export default function Registration() {
     }).then((response) => {
       console.log("Facebook login success, client side", response);
       alert("Facebook login success");
-      setMainButtonActive(false)  
+      setMainButtonActive(false)
+      localStorage.setItem("userToken",response.data.token)   
     });
   };
   
@@ -64,7 +66,7 @@ export default function Registration() {
       );
       // console.log(data);
       alert("Login is complete");
-      setMainButtonActive(false)   
+      setMainButtonActive(false)       
       // console.log(mainButtonActive)       
     } catch (e) {
       alert(e)

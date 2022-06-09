@@ -6,6 +6,7 @@ import { orange } from '@mui/material/colors';
 
 import { Box, Typography, TextField } from "@mui/material";
 import io from "socket.io-client";
+import QuestionButton from '../QuestionButton';
 const socket=io.connect("http://localhost:3001")
 
 
@@ -15,9 +16,7 @@ const socket=io.connect("http://localhost:3001")
 //function Qustion({data:{qustion,correct_answer,incorrect_answers1,incorrect_answers2,incorrect_answers3}}) {
  
 function Questions(){
-
-  const [color, setColor] = useState("#fffde7")
-  const [colorText, setColorText] = useState("#666")
+ 
   const [buttonActive, setButtonActive] = useState(false)
 
   const sendmessage=()=>{   
@@ -197,31 +196,19 @@ function Questions(){
 
           {/* <button onClick={getqute}>get items</button>  */}
           </div>
+
+          
+           
               
         {items.map(item=>{           
-          function answers(event){
+          function onCorrectAnswer(answer){
             console.log(item.correct_answer);
-            console.log(event.target.value)
             
-            socket.emit("send_message",event.target.value)
+            socket.emit("send_message",answer) 
             
-            if(event.target.value === item.correct_answer)
-            {  
-              
-              setColor("green")
-              setColorText("white")
-              setButtonActive(true)
-              // counter1++           
-              alert('answer is right ')                
-            }
-            else{
-              setColor("red")
-              setColorText("white")
-              setButtonActive(true)
-              // counter2++
-              alert('wrong answer ')               
-            }
-        }
+            setButtonActive(true)
+           
+          }
           
         return( 
           <Box className="questions main">
@@ -233,26 +220,16 @@ function Questions(){
             </Typography> 
 
             <div className="ques_left_side">
-              <button 
-                  id='1' 
-                  className='normal-button'
-                  value={item.answer1} 
-                  style={{backgroundColor: color, color: colorText}} 
-                  disabled={buttonActive}
-                  onClick={answers}
-              >
-                {item.answer1}
-              </button>                 
-              <button 
-                  id='2' 
-                  className='normal-button'
-                  value={item.answer2} 
-                  style={{backgroundColor: color, color: colorText}} 
-                  disabled={buttonActive}
-                  onClick={answers} 
-              >
-                {item.answer2}
-              </button>
+              <QuestionButton
+                answer={item.answer1}
+                correct_answer = {item.correct_answer}
+                buttonActive = {buttonActive}
+                onCorrectAnswer = { onCorrectAnswer } />
+              <QuestionButton
+                answer={item.answer2}
+                correct_answer = {item.correct_answer}
+                buttonActive = {buttonActive}
+                onCorrectAnswer = { onCorrectAnswer } />
               <button 
                 onClick={increase}  
                 className='button'
@@ -261,41 +238,31 @@ function Questions(){
               </button>            
             </div>
 
-            <div className="ques_right_side">              
-              <button 
-                  id='3' 
-                  value={item.answer3} 
-                  onClick={answers}
-                  style={{backgroundColor: color, color: colorText}} 
-                  disabled={buttonActive} 
-                  className='normal-button'
-              >
-                {item.answer3}
-              </button>
-              <button 
-                  id='4' 
-                  value={item.answer4} 
-                  style={{backgroundColor: color, color: colorText}} 
-                  disabled={buttonActive}
-                  onClick={answers} 
-                  className='normal-button'
-              >
-                {item.answer4}
-              </button>               
+            <div className="ques_right_side"> 
+              <QuestionButton
+                answer={item.answer3}
+                correct_answer = {item.correct_answer}
+                buttonActive = {buttonActive}
+                onCorrectAnswer = { onCorrectAnswer } />
+              <QuestionButton
+                answer={item.answer4}
+                correct_answer = {item.correct_answer}
+                buttonActive = {buttonActive}
+                onCorrectAnswer = { onCorrectAnswer } />
               <button 
                 onClick={reload}  
                 className='button'
               >
                 check the result
               </button>               
-          </div>              
+            </div>              
               <button 
                 id='123' 
                 onClick={fifty} 
                 className='button'
-                >
-                  50 / 50
-                </button> 
+              >
+                50 / 50
+              </button> 
           </Box>                        
         )
       })}        

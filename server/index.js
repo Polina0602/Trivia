@@ -20,6 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 app.use('/api/auth', require('./routers/auth.router'))
+// app.use('/api/game', require('./routers/game.router'))
 // app.use('/questions',require('./routers/questions.router'))
 
 async function start() {
@@ -67,17 +68,17 @@ console.log(itemSchema1)
 
 app.get("/items",(req,res)=>{
 
-  Item.find()
-  .then((items) => res.json(items))
-  .catch((err) => res.status(400).json("Error: " + err));
-  // Item.aggregate([{
-  //     $match:{}
+  // Item.find()
+  // .then((items) => res.json(items))
+  // .catch((err) => res.status(400).json("Error: " + err));
+  Item.aggregate([{
+      $match:{}
       
-  // }, { $sample: { size:5} }])
+  }, { $sample: { size:1} }])
  
-  // .then((items)=>res.json(items))
-  // .then(items=>console.log(items))
-  // .catch((err)=>res.status(400).json("error:"+ err));
+  .then((items)=>res.json(items))
+  .then(items=>console.log(items))
+  .catch((err)=>res.status(400).json("error:"+ err));
 
 });
 
@@ -114,8 +115,14 @@ const io=new Server(server,{
   },
 });
 
+
+
 io.on("connect",(socket)=>{
-//console.log(`user connect: ${socket.id}`)
+// console.log(`user connect: ${socket.id}`)
+// socket.on("auth",(data)=>{
+//   console.log(`New player connected: ${data}`);
+//   socket.broadcast.emit("res_mes",data)
+// })
 socket.on("send_message",(data)=>{
   console.log(data);
   socket.broadcast.emit("res_mes",data)
